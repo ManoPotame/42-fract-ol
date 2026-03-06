@@ -1,0 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/02 13:22:36 by mcrenn            #+#    #+#             */
+/*   Updated: 2026/03/06 18:27:22 by mcrenn           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../headers/header.h"
+
+static t_fractol	*init(void)
+{
+	t_fractol				*fract;
+	mlx_image				img;
+	mlx_window				win;
+	mlx_window_create_info	info;
+
+	fract = malloc(sizeof(t_fractol));
+	if (!fract)
+		exit(1);
+	fract->mlx = mlx_init();
+	fract->win_width = 700;
+	fract->win_height = 700;
+	fract->x = 0;
+	fract->y = 0;
+	fract->zoom = 1;
+	fract->offset_x = 0;
+	fract->offset_y = 0;
+	fract->max_iterations = 50;
+	info = (mlx_window_create_info){.title = "fractol",
+		.height = fract->win_height, .width = fract->win_width,};
+	img = mlx_new_image(fract->mlx, fract->win_width, fract->win_width);
+	win = mlx_new_window(fract->mlx, &info);
+	fract->img = img;
+	fract->win = win;
+	return (fract);
+}
+
+int	main(void)
+{
+	t_fractol	*fract;
+ 	fract = init();
+	make_window(fract);
+}
