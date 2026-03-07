@@ -6,7 +6,7 @@
 /*   By: mcrenn <mcrenn@student.42angouleme.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/02 13:22:36 by mcrenn            #+#    #+#             */
-/*   Updated: 2026/03/06 18:27:22 by mcrenn           ###   ########.fr       */
+/*   Updated: 2026/03/07 23:41:16 by mcrenn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_fractol	*init(void)
 	fract->zoom = 1;
 	fract->offset_x = 0;
 	fract->offset_y = 0;
-	fract->max_iterations = 50;
+	fract->max_iterations = 100;
 	info = (mlx_window_create_info){.title = "fractol",
 		.height = fract->win_height, .width = fract->win_width,};
 	img = mlx_new_image(fract->mlx, fract->win_width, fract->win_width);
@@ -40,9 +40,15 @@ static t_fractol	*init(void)
 	return (fract);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_fractol	*fract;
+
+	if(argc > 4)
+	{
+		//error
+		return (1);
+	}
  	fract = init();
 	make_window(fract);
 }
