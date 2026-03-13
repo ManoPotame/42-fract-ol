@@ -43,3 +43,4 @@ After that you can diaplay julia or mandelbrot. To do this, you'll have to execu
 - The documentation of [macrolibx](https://macrolibx.kbz8.me/guides/getting_started/).
 - The [formula](https://henry.codes/writing/how-to-map-a-number-between-two-ranges/) I use to remap.
 - The [wiki](https://en.wikipedia.org/wiki/Julia_set) of julia set.
+- And my 42 mates !
