@@ -2,44 +2,50 @@ NAME=fractol
 
 CC=gcc
 
-CFLAGS= -Wall -Wextra -Werror -g
+CFLAGS= -Wall -Wextra -Werror -g -Ofast
 
 VPATH=functions/fractol
 
-LIBPATH=functions/macrolibx/
+MACROPATH=functions/macrolibx/
 
-MACRO=$(addprefix $(LIBPATH), libmlx.so)
+LIBFTPATH=functions/libft/
 
-SRC = main.c window_manager.c fractol.c
+MACRO=$(addprefix $(MACROPATH), libmlx.so)
+
+LIBFT=$(addprefix $(LIBFTPATH), libft.a)
+
+SRC = main.c window_manager.c fractol.c error_manager.c utils.c
 
 OBJDIR=objects/
 
 OBJ=$(addprefix $(OBJDIR), $(SRC:.c=.o))
 
-all: $(NAME)
+all: $(NAME) $(LIBFT)
 
-$(NAME): $(OBJ) $(MACRO)
+$(NAME): $(OBJ) $(MACRO) $(LIBFT)
 	$(CC) $(CFLAGS) -o $@ $^ -lSDL2 -lm
 
 $(OBJDIR)%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-
-#$@ nom de la regle
-#$^ nom de toutes les dependances de la règle
-#$< nom de la premiere dependance
-
 $(OBJDIR):
 	mkdir -p $@
 
 $(MACRO):
-	make -C $(LIBPATH) all -j
+	make -C $(MACROPATH) all -j
+
+$(LIBFT):
+	make -sC $(LIBFTPATH) all
 
 clean:
 	rm -rfd $(OBJDIR)
+	make -C $(LIBFTPATH) clean
+	make -C $(MACROPATH) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFTPATH) fclean
+	make -C $(MACROPATH) fclean
 
 re: fclean all
 
